@@ -1,0 +1,32 @@
+源码下载
+http://apuebook.com/code3e.html
+
+解压文件
+tar -zxvf src.3e.tar.gz
+
+安装 libbsd-dev
+sudo apt-get install libbsd-dev
+
+编译
+cd apue.3e
+make
+
+环境搭建
+移动头文件和静态链接库到系统默认搜索路径中，方便以后在代码中引用。
+添加apue.h和libapue.a
+
+sudo cp include/apue.h /usr/include
+sudo cp lib/libapue.a /usr/lib
+sudo cp lib/libapue.a /usr/local/lib
+
+添加错误输出函数文件。新建apueerror.h，复制apue.3e/lib/error.c中的内容到到新建的文件中。
+sudo cp apue.3e/lib/error.c apueerror.h
+
+将apueerror.h添加到系统库中
+sudo cp apueerror.h /usr/include
+
+编译并运行第一个例子 ls
+编译时需要链接静态库-lapue
+
+gcc ls1.c -o 1 -lapue
+./1 .     # 列出当前目录的文件
